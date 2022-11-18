@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 
 class RefreshProductsFeed extends Command
@@ -38,7 +39,7 @@ class RefreshProductsFeed extends Command
      */
     public function __construct(
         private ApiServiceContract $apiService,
-    ){
+    ) {
         parent::__construct();
     }
 
@@ -79,10 +80,10 @@ class RefreshProductsFeed extends Command
         $path = $this->filePath($api, $public);
         $tempPath = $this->filePath($api, $public, true);
 
-        $this->info("[$url] Processing " . ($public ? 'public products' : 'private products'));
+        $this->info("[{$url}] Processing " . ($public ? 'public products' : 'private products'));
 
         if ($api->settings?->store_front_url === null) {
-            $this->info("[$url] Api store url not configured, skipping");
+            $this->info("[{$url}] Api store url not configured, skipping");
             return;
         }
 
@@ -103,8 +104,8 @@ class RefreshProductsFeed extends Command
         fclose($file);
         $file = null;
 
-        $fullUrl = "/shipping-methods";
-        $this->info("[$url] Getting shipping price");
+        $fullUrl = '/shipping-methods';
+        $this->info("[{$url}] Getting shipping price");
         $response = $this->apiService->get($api, $fullUrl);
         $shippingMethods = $response->json('data');
 
@@ -121,8 +122,11 @@ class RefreshProductsFeed extends Command
 
         $lastPage = 1; // Get at least once
         for ($page = 1; $page <= $lastPage; $page++) {
-            $fullUrl = "/products?full&page=${page}&limit=" . self::PRODUCTS_LIMIT . ($public ? '&public=1' : '');
-            $this->info("[$url] Getting page ${page} of {$lastPage}");
+            $fullUrl = "/products?full&page=${page}&limit=" .
+                Config::get('export.products_limit') .
+                ($public ? '&public=1' : '');
+
+            $this->info("[{$url}] Getting page ${page} of {$lastPage}");
 
             $response = $this->apiService->get($api, $fullUrl);
             $lastPage = $response->json('meta.last_page');

@@ -47,17 +47,17 @@ class HeseyaStoreGuard implements Guard
         return $this->user ?? $this->fetchUser();
     }
 
-    public function id()
+    public function id(): mixed
     {
         return $this->user->getAuthIdentifier();
     }
 
-    public function validate(array $credentials = [])
+    public function validate(array $credentials = []): void
     {
         // TODO: Implement validate() method.
     }
 
-    public function setUser(Authenticatable $user)
+    public function setUser(Authenticatable $user): void
     {
         $this->user = $user;
     }
@@ -117,6 +117,11 @@ class HeseyaStoreGuard implements Guard
         $payloadEncoded = Str::between($token, '.', '.');
 
         return json_decode(base64_decode($payloadEncoded), true);
+    }
+
+    public function hasUser(): bool
+    {
+        return $this->user !== null;
     }
 
     private function getToken(): ?string

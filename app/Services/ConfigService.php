@@ -25,7 +25,9 @@ class ConfigService implements ConfigServiceContract
 
         $configs = Collection::make([]);
         $configs->push($this->getConfigField(
-            'store_front_url', $with_values, $store_front_url ?? null,
+            'store_front_url',
+            $with_values,
+            $store_front_url ?? null,
         ));
         $configs->push($this->getConfigField(
             'product_type_set_parent_filter',

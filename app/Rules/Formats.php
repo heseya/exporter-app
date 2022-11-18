@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Config;
 
 class Formats implements Rule
 {
-    protected $formats;
+    protected array $formats;
 
     public function __construct()
     {
