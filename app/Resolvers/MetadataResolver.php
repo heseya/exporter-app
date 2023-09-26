@@ -15,6 +15,7 @@ class MetadataResolver implements LocalResolver
         return Arr::get(
             Arr::get($response, 'metadata', []),
             Str::of($field->valueKey)->after(' ')->trim()->toString(),
+            '',
         );
     }
 }
