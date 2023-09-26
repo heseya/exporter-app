@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\Feed;
 use App\Models\Field;
 use App\Resolvers\AdditionalImageResolver;
+use App\Resolvers\AttributeResolver;
 use App\Resolvers\AttrsResolver;
 use App\Resolvers\AvailabilityResolver;
 use App\Resolvers\AvailResolver;
@@ -17,6 +18,8 @@ use App\Resolvers\FileCreatedAtResolver;
 use App\Resolvers\GlobalResolver;
 use App\Resolvers\ImgsResolver;
 use App\Resolvers\LocalResolver;
+use App\Resolvers\MetadataPrivateResolver;
+use App\Resolvers\MetadataResolver;
 use App\Resolvers\PriceFloatResolver;
 use App\Resolvers\PriceResolver;
 use App\Resolvers\ProductUrlResolver;
@@ -51,6 +54,9 @@ class VariableService implements VariableServiceContract
         '#imgs' => ImgsResolver::class,
         '#wp_id' => WpIdResolver::class,
         '#sku' => SkuResolver::class,
+        '#attribute' => AttributeResolver::class,
+        '#metadata' => MetadataResolver::class,
+        '#metadata_private' => MetadataPrivateResolver::class,
     ];
 
     public function resolve(Feed $feed): array
