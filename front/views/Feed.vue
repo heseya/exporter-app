@@ -17,8 +17,8 @@
         <a-descriptions-item label="last refreshed">
           {{ feed.refreshed_at ? new Date(feed.refreshed_at).toLocaleString() : 'not generated yet' }}
         </a-descriptions-item>
-        <a-descriptions-item label="Processed rows">
-          {{ feed.processed_rows }}
+        <a-descriptions-item label="processed rows">
+          {{ feed.processed_rows ? feed.processed_rows : 'not generated yet' }}
         </a-descriptions-item>
       </a-descriptions>
     </a-page-header>
