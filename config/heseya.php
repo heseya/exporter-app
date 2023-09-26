@@ -9,7 +9,7 @@ return [
     'author' => 'Heseya',
     'description' => Env::get('APP_DESCRIPTION'),
     'icon' => Env::get('APP_URL') . '/logo.png',
-    'version' => '3.0.0',
+    'version' => '3.2.1',
     'api_version' => '^2.0.0',
     'microfrontend_url' => Env::get('APP_URL') . '/front',
     'licence_required' => Env::get('LICENSE_REQUIRED', false),
