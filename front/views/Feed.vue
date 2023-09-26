@@ -68,6 +68,9 @@
               <li><b>#attrs</b> - full attributes list in xml format</li>
               <li><b>#imgs</b> - full images list in xml format</li>
               <li><b>#wp_id</b> - id from wp_id private metadata or product id</li>
+              <li><b>#attribute {name}</b> - value from attributes</li>
+              <li><b>#metadata {key}</b> - value from public metadata</li>
+              <li><b>#metadata_private {key}</b> - value from private metadata</li>
             </ul>
             <h3>Global</h3>
             <ul>
