@@ -30,7 +30,7 @@ it('doesn\'t allow update not owned feed', function () {
     ]);
 });
 
-it('deletes feeds', function () {
+it('updates feeds', function () {
     $api = mockApi();
     actingAs(mockUser($api));
 
