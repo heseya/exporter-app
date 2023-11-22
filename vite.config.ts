@@ -16,7 +16,7 @@ export default defineConfig({
   build: {
     manifest: false,
     cssCodeSplit: false,
-    outDir: './storage/app/front',
+    outDir: './dist',
     lib: {
       name: 'Test',
       entry: './front/main.ts',

@@ -14,6 +14,6 @@ class FrontController extends Controller
     {
         $file = Str::of($file)->trim('/');
 
-        return Storage::download("front/{$file}");
+        return Storage::disk('front')->download($file);
     }
 }
