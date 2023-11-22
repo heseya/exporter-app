@@ -70168,7 +70168,7 @@ const useCoreApiUrl = () => ({
   coreUrl,
   setCoreApiUrl
 });
-const SERVICE_API_URL = "http://localhost:8000";
+const SERVICE_API_URL = "https://exporter.***REMOVED***.escolait.pl";
 const createApiInstance = (baseURL) => {
   const apiInstance = axios.create({ baseURL });
   const tokenChannel = index_umd.exports.openCommunicationChannel("Token");
