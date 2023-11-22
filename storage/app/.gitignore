@@ -3,4 +3,5 @@
 !feeds/
 !feeds-temp/
 !front/
+!front/*
 !.gitignore
