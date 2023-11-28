@@ -26,7 +26,9 @@ final readonly class FileServiceCSV implements FileServiceContract
                 $field->getGlobalValue());
 
             if ($field->resolver::ESCAPE) {
-                $value = $value->replace([',', "\n", '"', "'"], ' ');
+                $value = $value
+                    ->replace([',', "\n", "\r"], ' ')
+                    ->replace(['"'], "'");
             }
 
             $cells[] = $value

@@ -6,6 +6,7 @@ namespace App\Resolvers;
 
 use App\Models\Field;
 use App\Services\Contracts\ApiServiceContract;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 
 class ShippingPriceResolver implements GlobalResolver
@@ -19,7 +20,12 @@ class ShippingPriceResolver implements GlobalResolver
 
         $minShippingPrice = array_reduce(
             $shippingMethods,
-            fn ($carry, $item) => $carry === null || $item['price'] < $carry ? $item['price'] : $carry,
+            function ($carry, $item) use ($field) {
+                $prices = collect(Arr::get($item, 'prices'));
+                $price = $prices->where('currency', '=', $field->valueKey);
+
+                return $carry === null || $price < $carry ? $price : $carry;
+            },
         ) ?? 0;
 
         return "PL:{$minShippingPrice} PLN";

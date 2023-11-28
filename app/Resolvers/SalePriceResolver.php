@@ -11,6 +11,8 @@ class SalePriceResolver implements LocalResolver
 {
     public static function resolve(Field $field, array $response): string
     {
-        return Arr::get($response, 'price_min', 0) . ' PLN';
+        $prices = collect(Arr::get($response, 'price_min', 0));
+
+        return $prices->where('currency', '=', $field->valueKey) . ' ' . $field->valueKey;
     }
 }

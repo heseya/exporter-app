@@ -60,8 +60,8 @@
               <li><b>#additional_image</b> - url to second photo</li>
               <li><b>#availability</b> - in stock | out of stock</li>
               <li><b>#avail</b> - availability in Ceneo format</li>
-              <li><b>#price</b> - price with currency</li>
-              <li><b>#sale_price</b> - sale price with currency</li>
+              <li><b>#price {currency}</b> - price with currency</li>
+              <li><b>#sale_price {currency}</b> - sale price with currency</li>
               <li><b>#ean</b> - ean from attributes</li>
               <li><b>#product_url {url}</b> - full url to product</li>
               <li><b>#category</b> - full product category name</li>
@@ -74,7 +74,7 @@
             </ul>
             <h3>Global</h3>
             <ul>
-              <li><b>@shipping_price</b> - lowest shipping price in Google format</li>
+              <li><b>@shipping_price {currency}</b> - lowest shipping price in Google format</li>
               <li><b>@file_created_at</b> - file creation date</li>
             </ul>
             <h3>Response</h3>

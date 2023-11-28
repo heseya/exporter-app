@@ -11,10 +11,12 @@ class PriceResolver implements LocalResolver
 {
     public static function resolve(Field $field, array $response): string
     {
-        return Arr::get(
+        $prices = collect(Arr::get(
             $response,
             'price_min_initial',
             Arr::get($response, 'price_min', 0),
-        ) . ' PLN';
+        ));
+
+        return $prices->where('currency', '=', $field->valueKey) . ' ' . $field->valueKey;
     }
 }
