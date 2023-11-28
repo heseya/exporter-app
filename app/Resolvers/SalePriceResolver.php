@@ -13,6 +13,6 @@ class SalePriceResolver implements LocalResolver
     {
         $prices = collect(Arr::get($response, 'price_min', 0));
 
-        return $prices->where('currency', '=', $field->valueKey) . ' ' . $field->valueKey;
+        return $prices->firstWhere('currency', '=', $field->valueKey) . ' ' . $field->valueKey;
     }
 }
