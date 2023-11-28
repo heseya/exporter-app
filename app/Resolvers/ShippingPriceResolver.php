@@ -14,7 +14,7 @@ class ShippingPriceResolver implements GlobalResolver
 {
     public static function resolve(Field $field): string
     {
-        $currency = Str::of($field->valueKey)->after(' ');
+        $currency = Str::of($field->valueKey)->after(' ')->toString();
         $apiService = App::make(ApiServiceContract::class);
 
         $response = $apiService->get($field->feed->api, '/shipping-methods');

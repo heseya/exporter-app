@@ -18,7 +18,7 @@ class PriceResolver implements LocalResolver
             Arr::get($response, 'price_min', 0),
         ));
 
-        $currency = Str::of($field->valueKey)->after(' ');
+        $currency = Str::of($field->valueKey)->after(' ')->toString();
 
         return $prices->firstWhere('currency', '=', $currency) . ' ' . $currency;
     }
