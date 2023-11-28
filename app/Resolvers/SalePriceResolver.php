@@ -6,6 +6,7 @@ namespace App\Resolvers;
 
 use App\Models\Field;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class SalePriceResolver implements LocalResolver
 {
@@ -13,6 +14,8 @@ class SalePriceResolver implements LocalResolver
     {
         $prices = collect(Arr::get($response, 'price_min', 0));
 
-        return $prices->firstWhere('currency', '=', $field->valueKey) . ' ' . $field->valueKey;
+        $currency = Str::of($field->valueKey)->after(' ');
+
+        return $prices->firstWhere('currency', '=', $currency) . ' ' . $currency;
     }
 }
