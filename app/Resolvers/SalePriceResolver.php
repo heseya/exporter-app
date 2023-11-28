@@ -13,9 +13,12 @@ class SalePriceResolver implements LocalResolver
     public static function resolve(Field $field, array $response): string
     {
         $prices = collect(Arr::get($response, 'price_min', 0));
-
         $currency = Str::of($field->valueKey)->after(' ')->toString();
+        $price = Arr::get(
+            $prices->firstWhere('currency', '=', $currency),
+            'gross',
+        );
 
-        return $prices->firstWhere('currency', '=', $currency) . ' ' . $currency;
+        return "{$price} {$currency}";
     }
 }

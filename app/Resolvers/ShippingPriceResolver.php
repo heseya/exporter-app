@@ -24,7 +24,10 @@ class ShippingPriceResolver implements GlobalResolver
             $shippingMethods,
             function ($carry, $item) use ($currency) {
                 $prices = collect(Arr::get($item, 'prices'));
-                $price = $prices->firstWhere('currency', '=', $currency);
+                $price = Arr::get(
+                    $prices->firstWhere('currency', '=', $currency),
+                    'gross',
+                );
 
                 return $carry === null || $price < $carry ? $price : $carry;
             },
