@@ -14,7 +14,7 @@ class AttributeResolver implements LocalResolver
     public static function resolve(Field $field, array $response): string
     {
         $attribute = Collection::make(Arr::get($response, 'attributes', []))->firstWhere(
-            'name',
+            'slug',
             '=',
             Str::of($field->valueKey)->after(' ')->trim()->toString(),
         );

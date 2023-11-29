@@ -20,7 +20,7 @@ it('resolve field', function () {
 
 it('resolve field when there is no info', function () {
     expect(SalePriceResolver::resolve(
-        mockField(new SalePriceResolver(), valueKey:  'sale_price PLN'),
+        mockField(new SalePriceResolver(), valueKey: 'sale_price PLN'),
         [],
     ))->toEqual('0.00 PLN');
 });
