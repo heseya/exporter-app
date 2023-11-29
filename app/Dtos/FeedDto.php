@@ -25,7 +25,7 @@ final class FeedDto extends Dto
     {
         return new self(
             name: $request->input('name', new Missing()),
-            format: $request->enum('format', AuthType::class) ?? new Missing(),
+            format: $request->enum('format', FileFormat::class) ?? new Missing(),
             query: $request->input('query', new Missing()),
             auth: $request->has('auth') ? $request->enum('auth', AuthType::class) : new Missing(),
             username: $request->input('username', new Missing()),

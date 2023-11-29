@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\FileFormat;
 use App\Models\Feed;
 
 use function Pest\Laravel\actingAs;
@@ -43,5 +44,24 @@ it('updates feeds', function () {
     assertDatabaseHas('feeds', [
         'id' => $feed->getKey(),
         'name' => 'New Name',
+    ]);
+});
+
+it('updates feed format', function () {
+    $api = mockApi();
+    actingAs(mockUser($api));
+
+    $feed = Feed::factory()->create([
+        'api_id' => $api->getKey(),
+        'format' => FileFormat::CSV->value,
+    ]);
+
+    patchJson("/feeds/{$feed->getKey()}", [
+        'format' => FileFormat::XML->value,
+    ])->assertOk();
+
+    assertDatabaseHas('feeds', [
+        'id' => $feed->getKey(),
+        'format' => FileFormat::XML->value,
     ]);
 });
