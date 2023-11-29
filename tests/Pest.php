@@ -63,12 +63,12 @@ function mockApi(): Api
     ]);
 }
 
-function mockField(LocalResolver|GlobalResolver $resolver): Field
+function mockField(LocalResolver|GlobalResolver $resolver, string $key = 'test', string $valueKey = 'test'): Field
 {
     $api = mockApi();
     $feed = Feed::factory()->create(['api_id' => $api->getKey()]);
 
-    return new Field($feed, 'test', 'test', $resolver);
+    return new Field($feed, $key, $valueKey, $resolver);
 }
 
 function mockUser(Api $api): StoreUser

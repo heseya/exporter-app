@@ -10,17 +10,28 @@ it('resolves field', function () {
         '*' => [
             'data' => [
                 [
-                    'price' => 20,
+                    'prices' => [
+                        ['gross' => '5.00', 'currency' => 'EUR'],
+                        ['gross' => '20.00', 'currency' => 'PLN'],
+                    ],
                 ],
                 [
-                    'price' => 10,
+                    'prices' => [
+                        ['gross' => '2.00', 'currency' => 'EUR'],
+                        ['gross' => '10.00', 'currency' => 'PLN'],
+                    ],
                 ],
                 [
-                    'price' => 15,
+                    'prices' => [
+                        ['gross' => '3.00', 'currency' => 'EUR'],
+                        ['gross' => '15.00', 'currency' => 'PLN'],
+                    ],
                 ],
             ],
         ],
     ]);
 
-    expect(ShippingPriceResolver::resolve(mockField(new ShippingPriceResolver())))->toBe('PL:10 PLN');
+    expect(ShippingPriceResolver::resolve(
+        mockField(new ShippingPriceResolver(), valueKey: '@shipping_price PLN')),
+    )->toBe('PL:10.00 PLN');
 });
