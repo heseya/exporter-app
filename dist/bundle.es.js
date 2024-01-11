@@ -70224,7 +70224,7 @@ const createApiInstance = (baseURL) => {
 };
 const state$1 = reactive({ serviceUrl: {}.VITE_SERVICE_API_URL });
 const setServiceUrl = (url2) => {
-  console.log("Updated Core API URL to:", url2);
+  console.log("Updated Service URL to:", url2);
   state$1.serviceUrl = url2;
 };
 const serviceUrl = computed(() => state$1.serviceUrl);
