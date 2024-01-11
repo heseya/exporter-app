@@ -1,6 +1,6 @@
 <template>
   <div class="loading" v-if="isLoading">
-      <a-spin />
+    <a-spin />
   </div>
 
   <div v-if="!isLoading">
@@ -15,7 +15,9 @@
       </template>
       <a-descriptions size="small" :column="3">
         <a-descriptions-item label="last refreshed">
-          {{ feed.refreshed_at ? new Date(feed.refreshed_at).toLocaleString() : 'not generated yet' }}
+          {{
+            feed.refreshed_at ? new Date(feed.refreshed_at).toLocaleString() : 'not generated yet'
+          }}
         </a-descriptions-item>
         <a-descriptions-item label="processed rows">
           {{ feed.processed_rows ? feed.processed_rows : 'not generated yet' }}
@@ -49,7 +51,11 @@
         <a-input v-model:value="feed.query" :rules="[{ required: true }]" />
       </a-form-item>
       <a-form-item label="Fields">
-        <a-textarea v-model:value="feed.fields" :auto-size="{ minRows: 16 }" :rules="[{ required: true }]" />
+        <a-textarea
+          v-model:value="feed.fields"
+          :auto-size="{ minRows: 16 }"
+          :rules="[{ required: true }]"
+        />
       </a-form-item>
       <a-form-item label="Help">
         <a-collapse ghost>
@@ -98,11 +104,11 @@
 <script lang="ts">
 import { computed, defineComponent, onBeforeMount, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { api } from '../api'
-import { message, Modal } from "ant-design-vue";
-import router from "../router";
-import axios from "axios";
-import { Feed } from "../interfaces/Feed";
+import { message, Modal } from 'ant-design-vue'
+import router from '../router'
+import axios from 'axios'
+import { Feed } from '../interfaces/Feed'
+import { useApi } from '../composables/useApi'
 
 export default defineComponent({
   name: 'Feed',
@@ -111,10 +117,11 @@ export default defineComponent({
     const feed = ref<Feed | null>(null)
     const isLoading = ref(true)
     const feedId = computed(() => route.params.id as string)
+    const api = useApi()
 
     const getFeed = async () => {
       try {
-        const {data} = await api.get(`/feeds/${feedId.value}`)
+        const { data } = await api.value.get(`/feeds/${feedId.value}`)
         feed.value = data.data
         feed.value.fields = JSON.stringify(feed.value.fields, null, 4)
       } catch (error) {
@@ -152,7 +159,7 @@ export default defineComponent({
           }
         }
 
-        await api.patch(`/feeds/${feed.id}`, data)
+        await api.value.patch(`/feeds/${feed.id}`, data)
         message.success('Saved')
       } catch (error) {
         console.error(error)
@@ -169,10 +176,9 @@ export default defineComponent({
         title: 'Do you want to delete this feed?',
         async onOk() {
           try {
-            await api.delete(`/feeds/${id}`)
+            await api.value.delete(`/feeds/${id}`)
             message.success('Feed deleted')
-            await router.push({name: 'Index'})
-
+            await router.push({ name: 'Index' })
           } catch (error) {
             console.error(error)
             if (axios.isAxiosError(error)) {
@@ -200,9 +206,9 @@ export default defineComponent({
 
 <style scoped>
 .loading {
-    text-align: center;
-    width: 100%;
-    margin-top: 100px;
+  text-align: center;
+  width: 100%;
+  margin-top: 100px;
 }
 
 .feed-header {

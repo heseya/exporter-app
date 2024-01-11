@@ -13,6 +13,7 @@ import { useIdentityToken } from './store/token'
 import { useCoreApiUrl } from './store/coreApiUrl'
 
 import { User } from './interfaces/User'
+import { useServiceUrl } from './store/serviceUrl'
 
 export default defineComponent({
   name: 'App',
@@ -20,17 +21,19 @@ export default defineComponent({
     const { setUser } = useUser()
     const { setToken } = useIdentityToken()
     const { setCoreApiUrl } = useCoreApiUrl()
+    const { setServiceUrl } = useServiceUrl()
 
     const mainChannel = openCommunicationChannel('Main')
     const tokenChannel = openCommunicationChannel('Token')
 
-    mainChannel.on<{ coreUrl: string; token: string; user: User }>(
+    mainChannel.on<{ coreUrl: string; serviceUrl: string; token: string; user: User }>(
       'init',
-      ({ coreUrl, token, user }) => {
+      ({ coreUrl, serviceUrl, token, user }) => {
         setCoreApiUrl(coreUrl)
+        setServiceUrl(serviceUrl)
         setToken(token)
         setUser(user)
-      }
+      },
     )
 
     tokenChannel.on('set', (newToken: string) => {
