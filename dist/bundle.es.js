@@ -48367,7 +48367,7 @@ function notice$1(args) {
 function isArgsProps(content) {
   return Object.prototype.toString.call(content) === "[object Object]" && !!content.content;
 }
-var api$3 = {
+var api$2 = {
   open: notice$1,
   config: function config(options2) {
     if (options2.top !== void 0) {
@@ -48400,9 +48400,9 @@ var api$3 = {
   }
 };
 ["success", "info", "warning", "error", "loading"].forEach(function(type3) {
-  api$3[type3] = function(content, duration2, onClose) {
+  api$2[type3] = function(content, duration2, onClose) {
     if (isArgsProps(content)) {
-      return api$3.open(_extends$1(_extends$1({}, content), {
+      return api$2.open(_extends$1(_extends$1({}, content), {
         type: type3
       }));
     }
@@ -48410,7 +48410,7 @@ var api$3 = {
       onClose = duration2;
       duration2 = void 0;
     }
-    return api$3.open({
+    return api$2.open({
       content,
       duration: duration2,
       type: type3,
@@ -48418,8 +48418,8 @@ var api$3 = {
     });
   };
 });
-api$3.warn = api$3.warning;
-var message = api$3;
+api$2.warn = api$2.warning;
+var message = api$2;
 function getBeforeSelectionText(input) {
   var selectionStart = input.selectionStart;
   return input.value.slice(0, selectionStart);
@@ -50248,17 +50248,17 @@ var apiBase = {
     });
   }
 };
-var api$1 = apiBase;
+var api = apiBase;
 var iconTypes = ["success", "info", "warning", "error"];
 iconTypes.forEach(function(type3) {
-  api$1[type3] = function(args) {
-    return api$1.open(_extends$1(_extends$1({}, args), {
+  api[type3] = function(args) {
+    return api.open(_extends$1(_extends$1({}, args), {
       type: type3
     }));
   };
 });
-api$1.warn = api$1.warning;
-var api$2 = api$1;
+api.warn = api.warning;
+var api$1 = api;
 var ArrowLeftOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M872 474H286.9l350.2-304c5.6-4.9 2.2-14-5.2-14h-88.5c-3.9 0-7.6 1.4-10.5 3.9L155 487.8a31.96 31.96 0 000 48.3L535.1 866c1.5 1.3 3.3 2 5.2 2h91.5c7.4 0 10.8-9.2 5.2-14L286.9 550H872c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" } }] }, "name": "arrow-left", "theme": "outlined" };
 var ArrowLeftOutlinedSvg = ArrowLeftOutlined$2;
 function _objectSpread$j(target) {
@@ -67156,7 +67156,7 @@ var components = /* @__PURE__ */ Object.freeze({
   Modal,
   Statistic,
   StatisticCountdown,
-  notification: api$2,
+  notification: api$1,
   PageHeader: __unplugin_components_4,
   Pagination,
   Popconfirm: index$q,
@@ -67479,7 +67479,7 @@ var install = function install2(app) {
     }
   });
   app.config.globalProperties.$message = message;
-  app.config.globalProperties.$notification = api$2;
+  app.config.globalProperties.$notification = api$1;
   app.config.globalProperties.$info = Modal.info;
   app.config.globalProperties.$success = Modal.success;
   app.config.globalProperties.$error = Modal.error;
@@ -70149,26 +70149,25 @@ function isNull(value26) {
   return value26 === null;
 }
 var isNull_1 = isNull;
-const state$2 = reactive({ token: null });
+const state$3 = reactive({ token: null });
 const setToken = (token2) => {
-  state$2.token = token2;
+  state$3.token = token2;
 };
-const token = computed(() => state$2.token);
+const token = computed(() => state$3.token);
 const useIdentityToken = () => ({
   setToken,
   token
 });
-const state$1 = reactive({ coreApiUrl: {}.VITE_CORE_API_URL_FALLBACK });
+const state$2 = reactive({ coreApiUrl: {}.VITE_CORE_API_URL_FALLBACK });
 const setCoreApiUrl = (url2) => {
   console.log("Updated Core API URL to:", url2);
-  state$1.coreApiUrl = url2;
+  state$2.coreApiUrl = url2;
 };
-const coreUrl = computed(() => state$1.coreApiUrl);
+const coreUrl = computed(() => state$2.coreApiUrl);
 const useCoreApiUrl = () => ({
   coreUrl,
   setCoreApiUrl
 });
-const SERVICE_API_URL = "https://exporter.***REMOVED***.escolait.pl";
 const createApiInstance = (baseURL) => {
   const apiInstance = axios.create({ baseURL });
   const tokenChannel = index_umd.exports.openCommunicationChannel("Token");
@@ -70223,7 +70222,24 @@ const createApiInstance = (baseURL) => {
   });
   return apiInstance;
 };
-const api = createApiInstance(SERVICE_API_URL);
+const state$1 = reactive({ serviceUrl: {}.VITE_SERVICE_API_URL });
+const setServiceUrl = (url2) => {
+  console.log("Updated Core API URL to:", url2);
+  state$1.serviceUrl = url2;
+};
+const serviceUrl = computed(() => state$1.serviceUrl);
+const useServiceUrl = () => ({
+  serviceUrl,
+  setServiceUrl
+});
+const FALLBACK_SERVICE_API_URL = {}.VITE_SERVICE_API_URL;
+const useApi = () => {
+  const store = useServiceUrl();
+  const url2 = computed(() => store.serviceUrl.value && !store.serviceUrl.value.includes("localhost") ? store.serviceUrl.value : FALLBACK_SERVICE_API_URL);
+  if (!url2.value)
+    console.error("[Microfront] Service API URL is not defined!");
+  return computed(() => createApiInstance(url2.value));
+};
 var _export_sfc = (sfc, props2) => {
   const target = sfc.__vccOpts || sfc;
   for (const [key2, val] of props2) {
@@ -70236,6 +70252,7 @@ const _sfc_main$2 = defineComponent({
   setup() {
     const feeds = ref([]);
     const isLoading = ref(false);
+    const api2 = useApi();
     const page = ref(1);
     const pagination = reactive({
       value: page,
@@ -70248,7 +70265,7 @@ const _sfc_main$2 = defineComponent({
     const getFeeds = async () => {
       isLoading.value = true;
       try {
-        const { data: data80 } = await api.get(`/feeds`);
+        const { data: data80 } = await api2.value.get(`/feeds`);
         feeds.value = data80.data;
         pagination.total = data80.meta.total;
       } catch (error3) {
@@ -70263,7 +70280,7 @@ const _sfc_main$2 = defineComponent({
     };
     const newFeed = async () => {
       try {
-        const { data: data80 } = await api.post(`/feeds`, {
+        const { data: data80 } = await api2.value.post(`/feeds`, {
           name: "New feed",
           format: "csv",
           auth: "no",
@@ -70373,9 +70390,10 @@ const _sfc_main$1 = defineComponent({
     const feed = ref(null);
     const isLoading = ref(true);
     const feedId = computed(() => route.params.id);
+    const api2 = useApi();
     const getFeed = async () => {
       try {
-        const { data: data80 } = await api.get(`/feeds/${feedId.value}`);
+        const { data: data80 } = await api2.value.get(`/feeds/${feedId.value}`);
         feed.value = data80.data;
         feed.value.fields = JSON.stringify(feed.value.fields, null, 4);
       } catch (error3) {
@@ -70408,7 +70426,7 @@ const _sfc_main$1 = defineComponent({
             password: feed2.password
           });
         }
-        await api.patch(`/feeds/${feed2.id}`, data80);
+        await api2.value.patch(`/feeds/${feed2.id}`, data80);
         message.success("Saved");
       } catch (error3) {
         console.error(error3);
@@ -70424,7 +70442,7 @@ const _sfc_main$1 = defineComponent({
         title: "Do you want to delete this feed?",
         async onOk() {
           try {
-            await api.delete(`/feeds/${id2}`);
+            await api2.value.delete(`/feeds/${id2}`);
             message.success("Feed deleted");
             await router.push({ name: "Index" });
           } catch (error3) {
@@ -70448,7 +70466,7 @@ const _sfc_main$1 = defineComponent({
     };
   }
 });
-const _withScopeId = (n2) => (pushScopeId("data-v-4999d792"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-3bb8dbed"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$1 = {
   key: 0,
   class: "loading"
@@ -70479,11 +70497,11 @@ const _hoisted_10 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBas
     /* @__PURE__ */ createTextVNode(" - availability in Ceneo format")
   ]),
   /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createBaseVNode("b", null, "#price"),
+    /* @__PURE__ */ createBaseVNode("b", null, "#price {currency}"),
     /* @__PURE__ */ createTextVNode(" - price with currency")
   ]),
   /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createBaseVNode("b", null, "#sale_price"),
+    /* @__PURE__ */ createBaseVNode("b", null, "#sale_price {currency}"),
     /* @__PURE__ */ createTextVNode(" - sale price with currency")
   ]),
   /* @__PURE__ */ createBaseVNode("li", null, [
@@ -70511,7 +70529,7 @@ const _hoisted_10 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBas
     /* @__PURE__ */ createTextVNode(" - id from wp_id private metadata or product id")
   ]),
   /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createBaseVNode("b", null, "#attribute {name}"),
+    /* @__PURE__ */ createBaseVNode("b", null, "#attribute {slug}"),
     /* @__PURE__ */ createTextVNode(" - value from attributes")
   ]),
   /* @__PURE__ */ createBaseVNode("li", null, [
@@ -70526,7 +70544,7 @@ const _hoisted_10 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBas
 const _hoisted_11 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h3", null, "Global", -1));
 const _hoisted_12 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createBaseVNode("b", null, "@shipping_price"),
+    /* @__PURE__ */ createBaseVNode("b", null, "@shipping_price {currency}"),
     /* @__PURE__ */ createTextVNode(" - lowest shipping price in Google format")
   ]),
   /* @__PURE__ */ createBaseVNode("li", null, [
@@ -70775,7 +70793,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     ])) : createCommentVNode("", true)
   ], 64);
 }
-var Feed = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-4999d792"]]);
+var Feed = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-3bb8dbed"]]);
 const routes = [
   {
     path: "/",
@@ -70816,10 +70834,12 @@ const _sfc_main = defineComponent({
     const { setUser: setUser2 } = useUser();
     const { setToken: setToken2 } = useIdentityToken();
     const { setCoreApiUrl: setCoreApiUrl2 } = useCoreApiUrl();
+    const { setServiceUrl: setServiceUrl2 } = useServiceUrl();
     const mainChannel = index_umd.exports.openCommunicationChannel("Main");
     const tokenChannel = index_umd.exports.openCommunicationChannel("Token");
-    mainChannel.on("init", ({ coreUrl: coreUrl2, token: token2, user: user2 }) => {
+    mainChannel.on("init", ({ coreUrl: coreUrl2, serviceUrl: serviceUrl2, token: token2, user: user2 }) => {
       setCoreApiUrl2(coreUrl2);
+      setServiceUrl2(serviceUrl2);
       setToken2(token2);
       setUser2(user2);
     });
