@@ -1,9 +1,9 @@
 FROM escolasoft/php:8.2-heseya
 
 RUN apt update && apt install cron -y
-RUN echo "0 * * * *	root	(cd /var/www/html; php artisan refresh)" >> /etc/cron.d/feed
+RUN echo "0 * * * *	root	$( which php ) /var/www/html/artisan refresh"
 
 COPY . ./
 RUN composer i
 
-CMD service cron start && apache2-foreground
+CMD printenv > /etc/environment && service cron start && apache2-foreground
