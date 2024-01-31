@@ -47,18 +47,23 @@ class Feed extends Model
 
     public function path(): string
     {
-        return "feeds/{$this->getKey()}.{$this->format->value}";
+        return "feeds/{$this->getKey()}.{$this->extension}";
     }
 
     public function tempPath(): string
     {
         $now = time();
 
-        return "feeds-temp/{$this->getKey()}-{$now}.{$this->format->value}";
+        return "feeds-temp/{$this->getKey()}-{$now}.{$this->extension}";
     }
 
     public function url(): string
     {
         return Config::get('app.url') . "/file/{$this->getKey()}";
+    }
+
+    public function getExtensionAttribute(): string
+    {
+        return explode('-', $this->format->value)[0];
     }
 }
