@@ -33,6 +33,8 @@
         <a-radio-group v-model:value="feed.format">
           <a-radio-button value="csv">CSV</a-radio-button>
           <a-radio-button value="xml">XML</a-radio-button>
+          <a-radio-button value="xml-google">XML Google</a-radio-button>
+          <a-radio-button value="xml-ceneo">XML Ceneo</a-radio-button>
         </a-radio-group>
       </a-form-item>
       <a-form-item label="Auth">
