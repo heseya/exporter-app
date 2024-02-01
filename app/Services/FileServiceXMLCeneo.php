@@ -32,19 +32,19 @@ final class FileServiceXMLCeneo implements FileServiceContract
 
             if (in_array($field->key, $oElements)) {
                 $oData[] = $field->key . '="' . $value . '"';
-            }
+            } else {
+                if ($field->resolver::ESCAPE) {
+                    $value = $value
+                        ->replace('', '')
+                        ->start('<![CDATA[')
+                        ->append(']]>');
+                }
 
-            if ($field->resolver::ESCAPE) {
-                $value = $value
-                    ->replace('', '')
-                    ->start('<![CDATA[')
-                    ->append(']]>');
+                $cells[] = $value
+                    ->start("<{$field->key}>")
+                    ->append("</{$field->key}>")
+                    ->toString();
             }
-
-            $cells[] = $value
-                ->start("<{$field->key}>")
-                ->append("</{$field->key}>")
-                ->toString();
         }
         if (count($oData) > 0) {
             $cells[0] = '<o ' . implode(' ', $oData) . '>';
