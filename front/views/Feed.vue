@@ -84,6 +84,7 @@
             <ul>
               <li><b>@shipping_price {currency}</b> - lowest shipping price in Google format</li>
               <li><b>@file_created_at</b> - file creation date</li>
+              <li><b>@shipping_price_google {country} {currency}</b> - lowest shipping price in Google format with country and price tags</li>
             </ul>
             <h3>Response</h3>
             <ul>
