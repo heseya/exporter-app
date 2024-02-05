@@ -25,6 +25,7 @@ use App\Resolvers\PriceResolver;
 use App\Resolvers\ProductUrlResolver;
 use App\Resolvers\ResponseResolver;
 use App\Resolvers\SalePriceResolver;
+use App\Resolvers\ShippingPriceGoogleResolver;
 use App\Resolvers\ShippingPriceResolver;
 use App\Resolvers\SkuResolver;
 use App\Resolvers\StringResolver;
@@ -38,6 +39,7 @@ class VariableService implements VariableServiceContract
         // Global
         '@shipping_price' => ShippingPriceResolver::class,
         '@file_created_at' => FileCreatedAtResolver::class,
+        '@shipping_price_google' => ShippingPriceGoogleResolver::class,
 
         // Local
         '#cover' => CoverResolver::class,
