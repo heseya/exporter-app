@@ -6,7 +6,13 @@ use App\Models\Field;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class MetadataIdResolver implements LocalResolver
+/**
+ * This resolver retrieves the first existing product metadata
+ * based on the metadata names provided when defining feed fields.
+ * Metadata names should be provided separated by spaces.
+ * If none of the mentioned metadata is present in the product's metadata, the product ID value will be used.
+ */
+class FirstMetadataOrIdResolver implements LocalResolver
 {
     public static function resolve(Field $field, array $response): string
     {
@@ -15,18 +21,16 @@ class MetadataIdResolver implements LocalResolver
         if (count($metadata) > 0) {
             $keys = explode(' ', Str::of($field->valueKey)->after(' ')->toString());
 
-            $i = 0;
-            while ($i < count($keys)) {
+            foreach ($keys as $key) {
                 $result = Arr::get(
                     $metadata,
-                    $keys[$i],
+                    $key,
                     null
                 );
 
                 if ($result) {
                     return $result;
                 }
-                ++$i;
             }
         }
 

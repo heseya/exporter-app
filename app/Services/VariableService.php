@@ -15,10 +15,10 @@ use App\Resolvers\CategoryResolver;
 use App\Resolvers\CoverResolver;
 use App\Resolvers\EanResolver;
 use App\Resolvers\FileCreatedAtResolver;
+use App\Resolvers\FirstMetadataOrIdResolver;
 use App\Resolvers\GlobalResolver;
 use App\Resolvers\ImgsResolver;
 use App\Resolvers\LocalResolver;
-use App\Resolvers\MetadataIdResolver;
 use App\Resolvers\MetadataPrivateResolver;
 use App\Resolvers\MetadataResolver;
 use App\Resolvers\PriceFloatResolver;
@@ -60,7 +60,7 @@ class VariableService implements VariableServiceContract
         '#attribute' => AttributeResolver::class,
         '#metadata' => MetadataResolver::class,
         '#metadata_private' => MetadataPrivateResolver::class,
-        '#metadata_id' => MetadataIdResolver::class,
+        '#first_metadata_or_id' => FirstMetadataOrIdResolver::class,
     ];
 
     public function resolve(Feed $feed): array

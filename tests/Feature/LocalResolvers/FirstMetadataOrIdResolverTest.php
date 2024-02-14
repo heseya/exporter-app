@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\LocalResolvers;
 
-use App\Resolvers\MetadataIdResolver;
+use App\Resolvers\FirstMetadataOrIdResolver;
 
 it('resolve field', function () {
-    expect(MetadataIdResolver::resolve(mockField(new MetadataIdResolver(), valueKey: '#metadata_id magento_id'), [
+    expect(FirstMetadataOrIdResolver::resolve(mockField(new FirstMetadataOrIdResolver(), valueKey: '#first_metadata_or_id magento_id'), [
         'id' => 'test',
         'metadata' => [
             'magento_id' => '123',
@@ -14,7 +14,7 @@ it('resolve field', function () {
 });
 
 it('resolve field more metadata', function () {
-    expect(MetadataIdResolver::resolve(mockField(new MetadataIdResolver(), valueKey: '#metadata_id magento_id external_id'), [
+    expect(FirstMetadataOrIdResolver::resolve(mockField(new FirstMetadataOrIdResolver(), valueKey: '#first_metadata_or_id magento_id external_id'), [
         'id' => 'test',
         'metadata' => [
             'magento_id' => '123',
@@ -24,7 +24,7 @@ it('resolve field more metadata', function () {
 });
 
 it('resolve field only second metadata', function () {
-    expect(MetadataIdResolver::resolve(mockField(new MetadataIdResolver(), valueKey: '#metadata_id magento_id external_id'), [
+    expect(FirstMetadataOrIdResolver::resolve(mockField(new FirstMetadataOrIdResolver(), valueKey: '#first_metadata_or_id magento_id external_id'), [
         'id' => 'test',
         'metadata' => [
             'external_id' => '456',
@@ -33,7 +33,7 @@ it('resolve field only second metadata', function () {
 });
 
 it('resolve field when no metadata', function () {
-    expect(MetadataIdResolver::resolve(mockField(new MetadataIdResolver(), valueKey: '#metadata_id magento_id'), [
+    expect(FirstMetadataOrIdResolver::resolve(mockField(new FirstMetadataOrIdResolver(), valueKey: '#first_metadata_or_id magento_id'), [
         'id' => 'test',
     ]))->toEqual('test');
 });
