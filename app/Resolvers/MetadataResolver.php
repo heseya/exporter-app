@@ -12,10 +12,10 @@ class MetadataResolver implements LocalResolver
 {
     public static function resolve(Field $field, array $response): string
     {
-        return Arr::get(
+        return Str::of(Arr::get(
             Arr::get($response, 'metadata', []),
             Str::of($field->valueKey)->after(' ')->trim()->toString(),
             '',
-        );
+        ))->toString();
     }
 }
