@@ -24,6 +24,7 @@ use App\Resolvers\MetadataResolver;
 use App\Resolvers\PriceFloatResolver;
 use App\Resolvers\PriceResolver;
 use App\Resolvers\ProductUrlResolver;
+use App\Resolvers\PromoPriceFloatResolver;
 use App\Resolvers\ResponseResolver;
 use App\Resolvers\SalePriceResolver;
 use App\Resolvers\ShippingPriceGoogleResolver;
@@ -49,6 +50,7 @@ class VariableService implements VariableServiceContract
         '#avail' => AvailResolver::class,
         '#price' => PriceResolver::class,
         '#price_float' => PriceFloatResolver::class,
+        '#promo_price_float' => PromoPriceFloatResolver::class,
         '#sale_price' => SalePriceResolver::class,
         '#ean' => EanResolver::class,
         '#product_url' => ProductUrlResolver::class,
