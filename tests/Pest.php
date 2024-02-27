@@ -76,7 +76,7 @@ function mockUser(Api $api): StoreUser
     Http::fake([
         "{$api->url}/auth/check" => Http::response([
             'data' => [
-                'id' => $id = Illuminate\Support\Str::uuid(),
+                'id' => $id = Str::uuid(),
                 'name' => 'Unauthenticated',
                 'avatar' => '',
                 'permissions' => [

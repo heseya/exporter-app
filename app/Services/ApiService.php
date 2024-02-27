@@ -166,7 +166,10 @@ final readonly class ApiService implements ApiServiceContract
                 throw new ApiAuthorizationException('This action is unauthorized by API');
             }
 
-            if ($response->status() !== 401) {
+            if (
+                $response->status() !== 401
+                && $response->json('error.key', '') !== 'CLIENT_INVALID_TOKEN'
+            ) {
                 Log::error("API responded with an Error {$response->status()}", (array) $response->json());
                 throw new ApiClientErrorException("API responded with an Error {$response->status()}");
             }

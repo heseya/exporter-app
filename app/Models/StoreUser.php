@@ -17,7 +17,7 @@ class StoreUser implements AuthenticatableContract, AuthorizableContract
     use Authorizable;
 
     public function __construct(
-        public string|null|LazyUuidFromString $id,
+        public string|LazyUuidFromString|null $id,
         public string $name,
         public string $avatar,
         public array $permissions,
