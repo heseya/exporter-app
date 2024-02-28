@@ -22,6 +22,10 @@ final readonly class RefreshService implements RefreshServiceContract
 
     public function refreshFeed(Feed $feed): void
     {
+        $feed->update([
+            'refreshing_started_at' => Carbon::now(),
+        ]);
+
         $tempPath = storage_path('app/' . $feed->tempPath());
         $path = storage_path('app/' . $feed->path());
 
