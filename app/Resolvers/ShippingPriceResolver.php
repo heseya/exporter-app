@@ -19,7 +19,17 @@ class ShippingPriceResolver implements GlobalResolver
 
         $minShippingPrice = array_reduce(
             $shippingMethods,
-            fn ($carry, $item) => $carry === null || $item['price'] < $carry ? $item['price'] : $carry,
+            function ($carry, $item) {
+                if (
+                    $item['shipping_type'] !== 'digital'
+                    && $item['public'] === true
+                    && ($carry === null || $item['price'] < $carry)
+                ) {
+                    return $item['price'];
+                }
+
+                return $carry;
+            },
         ) ?? 0;
 
         return "PL:{$minShippingPrice} PLN";
