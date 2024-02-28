@@ -29,6 +29,7 @@ class Feed extends Model
         'password',
         'query',
         'refreshed_at',
+        'refreshing_started_at',
         'processed_rows',
         'fields',
     ];
