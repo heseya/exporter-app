@@ -25,6 +25,7 @@ use App\Resolvers\PriceResolver;
 use App\Resolvers\ProductUrlResolver;
 use App\Resolvers\ResponseResolver;
 use App\Resolvers\SalePriceResolver;
+use App\Resolvers\SetWithMetadataResolver;
 use App\Resolvers\ShippingPriceResolver;
 use App\Resolvers\SkuResolver;
 use App\Resolvers\StringResolver;
@@ -57,6 +58,7 @@ class VariableService implements VariableServiceContract
         '#attribute' => AttributeResolver::class,
         '#metadata' => MetadataResolver::class,
         '#metadata_private' => MetadataPrivateResolver::class,
+        '#set_with_metadata' => SetWithMetadataResolver::class,
     ];
 
     public function resolve(Feed $feed): array
