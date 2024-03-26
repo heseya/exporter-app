@@ -15476,7 +15476,7 @@ function isCompleteFailX(elFuturePos, elRegion, visibleRect) {
 function isCompleteFailY(elFuturePos, elRegion, visibleRect) {
   return elFuturePos.top > visibleRect.bottom || elFuturePos.top + elRegion.height < visibleRect.top;
 }
-function ***REMOVED***(points, reg, map2) {
+function flip(points, reg, map2) {
   var ret = [];
   utils$e.each(points, function(p2) {
     ret.push(p2.replace(reg, function(m2) {
@@ -15485,7 +15485,7 @@ function ***REMOVED***(points, reg, map2) {
   });
   return ret;
 }
-function ***REMOVED***Offset(offset4, index2) {
+function flipOffset(offset4, index2) {
   offset4[index2] = -offset4[index2];
   return offset4;
 }
@@ -15523,12 +15523,12 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
   if (visibleRect && (overflow3.adjustX || overflow3.adjustY) && isTgtRegionVisible) {
     if (overflow3.adjustX) {
       if (isFailX(elFuturePos, elRegion, visibleRect)) {
-        var newPoints = ***REMOVED***(points, /[lr]/gi, {
+        var newPoints = flip(points, /[lr]/gi, {
           l: "r",
           r: "l"
         });
-        var newOffset = ***REMOVED***Offset(offset4, 0);
-        var newTargetOffset = ***REMOVED***Offset(targetOffset2, 0);
+        var newOffset = flipOffset(offset4, 0);
+        var newTargetOffset = flipOffset(targetOffset2, 0);
         var newElFuturePos = getElFuturePos(elRegion, tgtRegion, newPoints, newOffset, newTargetOffset);
         if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
           fail = 1;
@@ -15540,12 +15540,12 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     }
     if (overflow3.adjustY) {
       if (isFailY(elFuturePos, elRegion, visibleRect)) {
-        var _newPoints = ***REMOVED***(points, /[tb]/gi, {
+        var _newPoints = flip(points, /[tb]/gi, {
           t: "b",
           b: "t"
         });
-        var _newOffset = ***REMOVED***Offset(offset4, 1);
-        var _newTargetOffset = ***REMOVED***Offset(targetOffset2, 1);
+        var _newOffset = flipOffset(offset4, 1);
+        var _newTargetOffset = flipOffset(targetOffset2, 1);
         var _newElFuturePos = getElFuturePos(elRegion, tgtRegion, _newPoints, _newOffset, _newTargetOffset);
         if (!isCompleteFailY(_newElFuturePos, elRegion, visibleRect)) {
           fail = 1;
@@ -15564,13 +15564,13 @@ function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
     if (isStillFailX || isStillFailY) {
       var _newPoints2 = points;
       if (isStillFailX) {
-        _newPoints2 = ***REMOVED***(points, /[lr]/gi, {
+        _newPoints2 = flip(points, /[lr]/gi, {
           l: "r",
           r: "l"
         });
       }
       if (isStillFailY) {
-        _newPoints2 = ***REMOVED***(points, /[tb]/gi, {
+        _newPoints2 = flip(points, /[tb]/gi, {
           t: "b",
           b: "t"
         });
