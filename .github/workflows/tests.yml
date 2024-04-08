@@ -5,6 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     container: escolasoft/php:8.2-heseya
     steps:
+      - name: Instantiate package
+        uses: actions/checkout@v2
+
       - name: Install dependencies
         run: composer install --no-ansi --no-interaction --no-progress
 
