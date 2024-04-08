@@ -1,0 +1,45 @@
+name: Tests
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: escolasoft/php:8.2-heseya
+    steps:
+      - name: Install dependencies
+        run: composer install --no-ansi --no-interaction --no-progress
+
+      - name: Copy env
+        run: cp .env.testing .env
+
+      - name: Generate keys
+        run: php artisan key:generate
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vendor
+          path: |
+            vendor/
+            .env
+          retention-days: 1
+
+  test:
+    runs-on: ubuntu-latest
+    container: escolasoft/php:8.2-heseya
+    needs: [build]
+    services:
+      mysql:
+        image: mariadb:10.7
+        options: --default-authentication-plugin=mysql_native_password
+    steps:
+      - name: Run tests
+        run: php -dpcov.enabled=1 -dpcov.exclude="~vendor~" ./vendor/bin/pest --coverage
+
+  style:
+    runs-on: ubuntu-latest
+    container: escolasoft/php:8.2-heseya
+    needs: [build]
+    if: github.ref_name != 'master' && github.ref_name != 'develop'
+    steps:
+      - name: Style
+        run: ./vendor/bin/pint --test
