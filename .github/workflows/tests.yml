@@ -8,9 +8,9 @@ jobs:
       mysql:
         image: mariadb:10.7
         env:
-          MYSQL_DATABASE: ${{ env.DB_DATABASE }}
-          MYSQL_PASSWORD: ${{ env.DB_PASSWORD }}
-          MYSQL_USER: ${{ env.DB_USERNAME }}
+          MYSQL_DATABASE: exporter
+          MYSQL_PASSWORD: root
+          MYSQL_USER: secret
     steps:
       - name: Instantiate package
         uses: actions/checkout@v2
