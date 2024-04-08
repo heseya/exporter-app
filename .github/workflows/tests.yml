@@ -8,9 +8,10 @@ jobs:
       mysql:
         image: mariadb:10.7
         env:
+          MYSQL_ROOT_PASSWORD: secret
           MYSQL_DATABASE: exporter
-          MYSQL_PASSWORD: root
-          MYSQL_USER: secret
+          MYSQL_PASSWORD: secret
+          MYSQL_USER: root
     steps:
       - name: Instantiate package
         uses: actions/checkout@v2
