@@ -12,6 +12,8 @@ jobs:
           MYSQL_DATABASE: exporter
           MYSQL_PASSWORD: secret
           MYSQL_USER: root
+        ports:
+          - 3306:3306
     steps:
       - name: Instantiate package
         uses: actions/checkout@v2
