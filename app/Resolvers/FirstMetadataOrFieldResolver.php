@@ -12,11 +12,13 @@ use Illuminate\Support\Str;
  * Metadata names should be provided separated by spaces.
  * If none of the mentioned metadata is present in the product's metadata, the product ID value will be used.
  */
-class FirstMetadataOrIdResolver implements LocalResolver
+class FirstMetadataOrFieldResolver implements LocalResolver
 {
     public static function resolve(Field $field, array $response): string
     {
         $metadata = Arr::get($response, 'metadata', []);
+
+        $defaultKey = Str::contains($field->valueKey, ';') ? trim(Str::of($field->valueKey)->after(';')->toString()) : 'id';
 
         if (count($metadata) > 0) {
             $keys = explode(' ', Str::of($field->valueKey)->after(' ')->toString());
@@ -34,6 +36,6 @@ class FirstMetadataOrIdResolver implements LocalResolver
             }
         }
 
-        return Arr::get($response, 'id', '');
+        return Arr::get($response, $defaultKey, '');
     }
 }
