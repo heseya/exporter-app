@@ -8,9 +8,9 @@ jobs:
       mysql:
         image: mariadb:10.7
         env:
-          MYSQL_DATABASE: exporter
-          MYSQL_PASSWORD: secret
-          MYSQL_USER: root
+          MYSQL_DATABASE: ${{ env.DB_DATABASE }}
+          MYSQL_PASSWORD: ${{ env.DB_PASSWORD }}
+          MYSQL_USER: ${{ env.DB_USERNAME }}
     steps:
       - name: Instantiate package
         uses: actions/checkout@v2
@@ -23,6 +23,9 @@ jobs:
 
       - name: Generate keys
         run: php artisan key:generate
+
+      - name: Migrations
+        run: php artisan migrate:fresh
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
