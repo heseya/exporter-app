@@ -20,6 +20,8 @@ return [
         'products.show_hidden',
         'products.show_metadata_private',
         'shipping_methods.show',
+        'product_sets.show',
+        'product_sets.show_hidden',
     ],
     'internal_permissions' => [
         [
