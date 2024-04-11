@@ -41,6 +41,6 @@ it('resolve field when no metadata', function () {
 it('resolve field when no metadata custom field', function () {
     expect(FirstMetadataOrFieldResolver::resolve(mockField(new FirstMetadataOrFieldResolver(), valueKey: '#first_metadata_or_field magento_id;name'), [
         'id' => 'test',
-        'name' => 'name field'
+        'name' => 'name field',
     ]))->toEqual('name field');
 });
