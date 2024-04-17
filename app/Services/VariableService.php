@@ -15,7 +15,7 @@ use App\Resolvers\CategoryResolver;
 use App\Resolvers\CoverResolver;
 use App\Resolvers\EanResolver;
 use App\Resolvers\FileCreatedAtResolver;
-use App\Resolvers\FirstMetadataOrIdResolver;
+use App\Resolvers\FirstMetadataOrFieldResolver;
 use App\Resolvers\GlobalResolver;
 use App\Resolvers\ImgsResolver;
 use App\Resolvers\LocalResolver;
@@ -62,7 +62,7 @@ class VariableService implements VariableServiceContract
         '#attribute' => AttributeResolver::class,
         '#metadata' => MetadataResolver::class,
         '#metadata_private' => MetadataPrivateResolver::class,
-        '#first_metadata_or_id' => FirstMetadataOrIdResolver::class,
+        '#first_metadata_or_field' => FirstMetadataOrFieldResolver::class,
     ];
 
     public function resolve(Feed $feed): array
