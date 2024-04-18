@@ -7,3 +7,4 @@ COPY . ./
 RUN composer i
 
 CMD printenv > /etc/environment && service cron start && apache2-foreground
+RUN chown -R www-data:www-data /var/www/html

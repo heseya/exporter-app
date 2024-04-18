@@ -23,3 +23,5 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 COPY . ./
 RUN composer i
+
+RUN chown -R www-data:www-data /var/www/html

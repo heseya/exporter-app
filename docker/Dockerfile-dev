@@ -22,3 +22,4 @@ RUN docker-php-ext-install gd
 RUN docker-php-ext-install zip
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN chown -R www-data:www-data /var/www/html
