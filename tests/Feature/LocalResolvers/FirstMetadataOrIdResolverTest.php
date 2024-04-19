@@ -50,7 +50,7 @@ it('resolve field when metadata and custom field', function () {
         'id' => 'test',
         'name' => 'name field',
         'metadata' => [
-            'magento_id' => '456'
-        ]
+            'magento_id' => '456',
+        ],
     ]))->toEqual('456');
 });
