@@ -21,7 +21,7 @@ class FirstMetadataOrFieldResolver implements LocalResolver
         $defaultKey = Str::contains($field->valueKey, ';') ? trim(Str::of($field->valueKey)->after(';')->toString()) : 'id';
 
         if (count($metadata) > 0) {
-            $keys = explode(' ', Str::of($field->valueKey)->after(' ')->toString());
+            $keys = explode(' ', Str::of($field->valueKey)->after(' ')->before(';')->toString());
 
             foreach ($keys as $key) {
                 $result = Arr::get(
