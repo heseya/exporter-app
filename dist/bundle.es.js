@@ -70222,7 +70222,7 @@ const createApiInstance = (baseURL) => {
   });
   return apiInstance;
 };
-const state$1 = reactive({ serviceUrl: {}.VITE_SERVICE_API_URL });
+const state$1 = reactive({ serviceUrl: "" });
 const setServiceUrl = (url2) => {
   console.log("Updated Service URL to:", url2);
   state$1.serviceUrl = url2;
@@ -70232,7 +70232,7 @@ const useServiceUrl = () => ({
   serviceUrl,
   setServiceUrl
 });
-const FALLBACK_SERVICE_API_URL = {}.VITE_SERVICE_API_URL;
+const FALLBACK_SERVICE_API_URL = "";
 const useApi = () => {
   const store = useServiceUrl();
   const url2 = computed(() => store.serviceUrl.value && !store.serviceUrl.value.includes("localhost") ? store.serviceUrl.value : FALLBACK_SERVICE_API_URL);
@@ -70466,7 +70466,7 @@ const _sfc_main$1 = defineComponent({
     };
   }
 });
-const _withScopeId = (n2) => (pushScopeId("data-v-3bb8dbed"), n2 = n2(), popScopeId(), n2);
+const _withScopeId = (n2) => (pushScopeId("data-v-e48f1ff4"), n2 = n2(), popScopeId(), n2);
 const _hoisted_1$1 = {
   key: 0,
   class: "loading"
@@ -70476,10 +70476,12 @@ const _hoisted_3 = /* @__PURE__ */ createTextVNode("Copy url");
 const _hoisted_4 = /* @__PURE__ */ createTextVNode("Delete");
 const _hoisted_5 = /* @__PURE__ */ createTextVNode("CSV");
 const _hoisted_6 = /* @__PURE__ */ createTextVNode("XML");
-const _hoisted_7 = /* @__PURE__ */ createTextVNode("No auth");
-const _hoisted_8 = /* @__PURE__ */ createTextVNode("Basic auth");
-const _hoisted_9 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h3", null, "Local", -1));
-const _hoisted_10 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_7 = /* @__PURE__ */ createTextVNode("XML Google");
+const _hoisted_8 = /* @__PURE__ */ createTextVNode("XML Ceneo");
+const _hoisted_9 = /* @__PURE__ */ createTextVNode("No auth");
+const _hoisted_10 = /* @__PURE__ */ createTextVNode("Basic auth");
+const _hoisted_11 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h3", null, "Local", -1));
+const _hoisted_12 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createBaseVNode("b", null, "#cover"),
     /* @__PURE__ */ createTextVNode(" - url to first photo")
@@ -70499,6 +70501,10 @@ const _hoisted_10 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBas
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createBaseVNode("b", null, "#price {currency}"),
     /* @__PURE__ */ createTextVNode(" - price with currency")
+  ]),
+  /* @__PURE__ */ createBaseVNode("li", null, [
+    /* @__PURE__ */ createBaseVNode("b", null, "#promo_price_float {currency}"),
+    /* @__PURE__ */ createTextVNode(" - promo price with currency")
   ]),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createBaseVNode("b", null, "#sale_price {currency}"),
@@ -70529,6 +70535,10 @@ const _hoisted_10 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBas
     /* @__PURE__ */ createTextVNode(" - id from wp_id private metadata or product id")
   ]),
   /* @__PURE__ */ createBaseVNode("li", null, [
+    /* @__PURE__ */ createBaseVNode("b", null, "#sku"),
+    /* @__PURE__ */ createTextVNode(" - sku from first item")
+  ]),
+  /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createBaseVNode("b", null, "#attribute {slug}"),
     /* @__PURE__ */ createTextVNode(" - value from attributes")
   ]),
@@ -70539,10 +70549,18 @@ const _hoisted_10 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBas
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createBaseVNode("b", null, "#metadata_private {key}"),
     /* @__PURE__ */ createTextVNode(" - value from private metadata")
+  ]),
+  /* @__PURE__ */ createBaseVNode("li", null, [
+    /* @__PURE__ */ createBaseVNode("b", null, "#first_metadata_or_field {key1} {key2} ... {keyN};{field}"),
+    /* @__PURE__ */ createTextVNode(" - value from private metadata")
+  ]),
+  /* @__PURE__ */ createBaseVNode("li", null, [
+    /* @__PURE__ */ createBaseVNode("b", null, "#strip_html {key}"),
+    /* @__PURE__ */ createTextVNode(" - strip html from given string")
   ])
 ], -1));
-const _hoisted_11 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h3", null, "Global", -1));
-const _hoisted_12 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_13 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h3", null, "Global", -1));
+const _hoisted_14 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createBaseVNode("b", null, "@shipping_price {currency}"),
     /* @__PURE__ */ createTextVNode(" - lowest shipping price in Google format")
@@ -70550,23 +70568,27 @@ const _hoisted_12 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBas
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createBaseVNode("b", null, "@file_created_at"),
     /* @__PURE__ */ createTextVNode(" - file creation date")
+  ]),
+  /* @__PURE__ */ createBaseVNode("li", null, [
+    /* @__PURE__ */ createBaseVNode("b", null, "@shipping_price_google {country} {currency}"),
+    /* @__PURE__ */ createTextVNode(" - lowest shipping price in Google format with country and price tags")
   ])
 ], -1));
-const _hoisted_13 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h3", null, "Response", -1));
-const _hoisted_14 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_15 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h3", null, "Response", -1));
+const _hoisted_16 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createBaseVNode("b", null, "$string"),
     /* @__PURE__ */ createTextVNode(" - raw data from response")
   ])
 ], -1));
-const _hoisted_15 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h3", null, "Raw", -1));
-const _hoisted_16 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_17 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("h3", null, "Raw", -1));
+const _hoisted_18 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createBaseVNode("b", null, "string"),
     /* @__PURE__ */ createTextVNode(" - raw string from input")
   ])
 ], -1));
-const _hoisted_17 = /* @__PURE__ */ createTextVNode("Save");
+const _hoisted_19 = /* @__PURE__ */ createTextVNode("Save");
 function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_a_spin = Spin;
   const _component_a_button = Button;
@@ -70671,6 +70693,18 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
                       _hoisted_6
                     ]),
                     _: 1
+                  }),
+                  createVNode(_component_a_radio_button, { value: "xml-google" }, {
+                    default: withCtx(() => [
+                      _hoisted_7
+                    ]),
+                    _: 1
+                  }),
+                  createVNode(_component_a_radio_button, { value: "xml-ceneo" }, {
+                    default: withCtx(() => [
+                      _hoisted_8
+                    ]),
+                    _: 1
                   })
                 ]),
                 _: 1
@@ -70687,13 +70721,13 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
                 default: withCtx(() => [
                   createVNode(_component_a_radio_button, { value: "no" }, {
                     default: withCtx(() => [
-                      _hoisted_7
+                      _hoisted_9
                     ]),
                     _: 1
                   }),
                   createVNode(_component_a_radio_button, { value: "basic" }, {
                     default: withCtx(() => [
-                      _hoisted_8
+                      _hoisted_10
                     ]),
                     _: 1
                   })
@@ -70756,14 +70790,14 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
                 default: withCtx(() => [
                   createVNode(_component_a_collapse_panel, { header: "Available fields" }, {
                     default: withCtx(() => [
-                      _hoisted_9,
-                      _hoisted_10,
                       _hoisted_11,
                       _hoisted_12,
                       _hoisted_13,
                       _hoisted_14,
                       _hoisted_15,
-                      _hoisted_16
+                      _hoisted_16,
+                      _hoisted_17,
+                      _hoisted_18
                     ]),
                     _: 1
                   })
@@ -70780,7 +70814,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
                 onClick: _cache[10] || (_cache[10] = ($event) => _ctx.submit(_ctx.feed))
               }, {
                 default: withCtx(() => [
-                  _hoisted_17
+                  _hoisted_19
                 ]),
                 _: 1
               })
@@ -70793,7 +70827,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     ])) : createCommentVNode("", true)
   ], 64);
 }
-var Feed = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-3bb8dbed"]]);
+var Feed = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1], ["__scopeId", "data-v-e48f1ff4"]]);
 const routes = [
   {
     path: "/",
