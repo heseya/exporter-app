@@ -79,6 +79,8 @@
               <li><b>#attribute {slug}</b> - value from attributes</li>
               <li><b>#metadata {key}</b> - value from public metadata</li>
               <li><b>#metadata_private {key}</b> - value from private metadata</li>
+              <li><b>#first_metadata_or_field {key1} {key2} ... {keyN};{field}</b> - value from private metadata</li>
+              <li><b>#strip_html {key}</b> - strip html from given string</li>
             </ul>
             <h3>Global</h3>
             <ul>
