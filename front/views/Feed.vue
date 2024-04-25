@@ -69,6 +69,7 @@
               <li><b>#availability</b> - in stock | out of stock</li>
               <li><b>#avail</b> - availability in Ceneo format</li>
               <li><b>#price {currency}</b> - price with currency</li>
+              <li><b>#promo_price_float {currency}</b> - promo price with currency</li>
               <li><b>#sale_price {currency}</b> - sale price with currency</li>
               <li><b>#ean</b> - ean from attributes</li>
               <li><b>#product_url {url}</b> - full url to product</li>
@@ -76,6 +77,7 @@
               <li><b>#attrs</b> - full attributes list in xml format</li>
               <li><b>#imgs</b> - full images list in xml format</li>
               <li><b>#wp_id</b> - id from wp_id private metadata or product id</li>
+              <li><b>#sku</b> - sku from first item</li>
               <li><b>#attribute {slug}</b> - value from attributes</li>
               <li><b>#metadata {key}</b> - value from public metadata</li>
               <li><b>#metadata_private {key}</b> - value from private metadata</li>
