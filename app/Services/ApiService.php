@@ -134,6 +134,35 @@ final readonly class ApiService implements ApiServiceContract
         bool $withToken = true,
         array $parameters = [],
     ): Response {
+        $max_retries = 5;
+        $i = 0;
+
+        while ($i <= $max_retries) {
+            try {
+                return $this->sendOnce($api, $method, $url, $data, $headers, $tryRefreshing, $withToken, $parameters);
+            } catch (Throwable $e) {
+                $i++;
+
+                if ($i <= $max_retries) {
+                    sleep(2 ^ ($i - 1));
+                    Log::warn("Retrying {$method} $url: {$i}/{$max_retries}");
+                } else {
+                    throw $e;
+                }
+            }
+        }
+    }
+
+    private function sendOnce(
+        Api $api,
+        string $method,
+        string $url,
+        ?array $data = [],
+        array $headers = [],
+        bool $tryRefreshing = true,
+        bool $withToken = true,
+        array $parameters = [],
+    ): Response {
         try {
             $request = Http::acceptJson()
                 ->asJson()
