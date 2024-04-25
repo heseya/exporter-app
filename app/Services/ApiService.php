@@ -122,7 +122,7 @@ final readonly class ApiService implements ApiServiceContract
      * @throws ApiAuthorizationException
      * @throws ApiClientErrorException
      * @throws ApiConnectionException
-     * @throws ApiServerErrorException
+     * @throws ApiServerErrorException|Throwable
      */
     private function send(
         Api $api,
@@ -141,11 +141,11 @@ final readonly class ApiService implements ApiServiceContract
             try {
                 return $this->sendOnce($api, $method, $url, $data, $headers, $tryRefreshing, $withToken, $parameters);
             } catch (Throwable $e) {
-                $i++;
+                ++$i;
 
                 if ($i <= $max_retries) {
                     sleep(2 ^ ($i - 1));
-                    Log::error("Retrying {$method} $url: {$i}/{$max_retries}");
+                    Log::info("Retrying {$method} {$url}: {$i}/{$max_retries}");
                 } else {
                     throw $e;
                 }

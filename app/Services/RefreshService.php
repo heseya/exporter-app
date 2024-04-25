@@ -9,9 +9,9 @@ use App\Services\Contracts\ApiServiceContract;
 use App\Services\Contracts\FileServiceContract;
 use App\Services\Contracts\RefreshServiceContract;
 use App\Services\Contracts\VariableServiceContract;
+use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
 
 final readonly class RefreshService implements RefreshServiceContract
 {
@@ -21,7 +21,7 @@ final readonly class RefreshService implements RefreshServiceContract
     ) {
     }
 
-    public function refreshFeed(Feed $feed): void
+    public function refreshFeed(Feed $feed, ?Command $command): void
     {
         $tempPath = storage_path('app/' . $feed->tempPath());
         $path = storage_path('app/' . $feed->path());
@@ -40,7 +40,7 @@ final readonly class RefreshService implements RefreshServiceContract
         $lastPage = 1; // Get at least once
         $tempFile = fopen($tempPath, 'a'); // append data
         for ($page = 1; $page <= $lastPage; ++$page) {
-            Log::error("[{$feed->api->url} - {$feed->name}] Processing page {$page}/$lastPage");
+            $command?->info("[{$feed->api->url} - {$feed->name}] Processing page {$page}/{$lastPage}");
             $pageRows = '';
             $response = $this->apiService->get($feed->api, "{$feed->query}&page={$page}");
             $lastPage = $response->json('meta.last_page');

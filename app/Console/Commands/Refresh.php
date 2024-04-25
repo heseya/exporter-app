@@ -54,7 +54,7 @@ class Refresh extends Command
         foreach ($feeds as $feed) {
             try {
                 $this->info("[{$feed->api->url} - {$feed->name}] Starting...");
-                $this->refreshService->refreshFeed($feed);
+                $this->refreshService->refreshFeed($feed, $this);
                 $this->info("[{$feed->api->url} - {$feed->name}] Processed successfully!");
             } catch (Exception $exception) {
                 $this->error("[{$feed->api->url} - {$feed->name}] {$exception->getMessage()}");
