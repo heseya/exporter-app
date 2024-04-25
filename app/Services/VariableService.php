@@ -31,6 +31,7 @@ use App\Resolvers\ShippingPriceGoogleResolver;
 use App\Resolvers\ShippingPriceResolver;
 use App\Resolvers\SkuResolver;
 use App\Resolvers\StringResolver;
+use App\Resolvers\StripHtmlResolver;
 use App\Resolvers\WpIdResolver;
 use App\Services\Contracts\VariableServiceContract;
 use Illuminate\Support\Str;
@@ -63,6 +64,7 @@ class VariableService implements VariableServiceContract
         '#metadata' => MetadataResolver::class,
         '#metadata_private' => MetadataPrivateResolver::class,
         '#first_metadata_or_field' => FirstMetadataOrFieldResolver::class,
+        '#strip_html' => StripHtmlResolver::class,
     ];
 
     public function resolve(Feed $feed): array
