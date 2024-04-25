@@ -12,6 +12,15 @@ class StripHtmlResolver implements LocalResolver
     {
         $key = Str::of($field->valueKey)->after(' ')->toString();
 
-        return html_entity_decode(strip_tags(str_replace('><', '> <', Arr::get($response, $key, ''))));
+        return preg_replace(
+            '#\s+#', ' ',
+            html_entity_decode(
+                strip_tags(
+                    str_replace(
+                        '><', '> <', Arr::get($response, $key, '')
+                    )
+                )
+            )
+        );
     }
 }

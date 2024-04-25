@@ -9,8 +9,7 @@ it('resolve field', function () {
         'id' => 'test',
         'description_html' => '<h1>Nagłówek</h1>
 <p>Lorem ipsum.</p>',
-    ]))->toEqual('Nagłówek
-Lorem ipsum.');
+    ]))->toEqual('Nagłówek Lorem ipsum.');
 });
 
 it('resolve nested field', function () {
