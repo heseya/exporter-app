@@ -21,3 +21,12 @@ it('resolve nested field', function () {
         ],
     ]))->toEqual('Lorem ipsum.');
 });
+
+it('resolve space after tag', function () {
+    expect(StripHtmlResolver::resolve(mockField(new StripHtmlResolver(), valueKey: '#strip_html metadata.description'), [
+        'id' => 'test',
+        'metadata' => [
+            'description' => '<p>Lorem ipsum.</p><p>Next paragraph</p>',
+        ],
+    ]))->toEqual('Lorem ipsum. Next paragraph');
+});

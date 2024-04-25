@@ -12,6 +12,6 @@ class StripHtmlResolver implements LocalResolver
     {
         $key = Str::of($field->valueKey)->after(' ')->toString();
 
-        return strip_tags(Arr::get($response, $key, ''));
+        return strip_tags(str_replace('><', '> <', Arr::get($response, $key, '')));
     }
 }
