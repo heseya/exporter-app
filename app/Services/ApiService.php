@@ -145,7 +145,7 @@ final readonly class ApiService implements ApiServiceContract
 
                 if ($i <= $max_retries) {
                     sleep(2 ^ ($i - 1));
-                    Log::warn("Retrying {$method} $url: {$i}/{$max_retries}");
+                    Log::warning("Retrying {$method} $url: {$i}/{$max_retries}");
                 } else {
                     throw $e;
                 }
