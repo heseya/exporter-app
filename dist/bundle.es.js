@@ -70222,7 +70222,7 @@ const createApiInstance = (baseURL) => {
   });
   return apiInstance;
 };
-const state$1 = reactive({ serviceUrl: "" });
+const state$1 = reactive({ serviceUrl: {}.VITE_SERVICE_API_URL });
 const setServiceUrl = (url2) => {
   console.log("Updated Service URL to:", url2);
   state$1.serviceUrl = url2;
@@ -70232,7 +70232,7 @@ const useServiceUrl = () => ({
   serviceUrl,
   setServiceUrl
 });
-const FALLBACK_SERVICE_API_URL = "";
+const FALLBACK_SERVICE_API_URL = {}.VITE_SERVICE_API_URL;
 const useApi = () => {
   const store = useServiceUrl();
   const url2 = computed(() => store.serviceUrl.value && !store.serviceUrl.value.includes("localhost") ? store.serviceUrl.value : FALLBACK_SERVICE_API_URL);
