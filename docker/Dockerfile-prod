@@ -1,9 +1,17 @@
+FROM node:18 AS builder
+
+WORKDIR /
+COPY . ./
+RUN yarn install
+RUN yarn build
+
 FROM escolasoft/php:8.2-heseya
 
 RUN apt update && apt install cron -y
 RUN echo "0 * * * *	root	$( which php ) /var/www/html/artisan refresh" >> /etc/cron.d/feed
 
 COPY . ./
+COPY --from=builder /dist ./dist
 RUN composer i
 
 CMD printenv > /etc/environment && service cron start && apache2-foreground
