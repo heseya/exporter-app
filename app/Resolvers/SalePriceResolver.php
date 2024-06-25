@@ -23,6 +23,7 @@ class SalePriceResolver implements LocalResolver
     private static function getPrice(array $response, string $field_name, string $currency): string
     {
         $prices = collect(Arr::get($response, $field_name));
+
         return Arr::get(
             $prices->firstWhere('currency', '=', $currency),
             'gross',
