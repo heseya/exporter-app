@@ -44,4 +44,9 @@ final readonly class FileServiceCSV implements FileServiceContract
     {
         return '';
     }
+
+    public function buildAdditionalData(array $fields): string
+    {
+        return '';
+    }
 }

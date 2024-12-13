@@ -49,4 +49,9 @@ final class FileServiceXMLGoogle implements FileServiceContract
     {
         return '</feed>';
     }
+
+    public function buildAdditionalData(array $fields): string
+    {
+        return '';
+    }
 }

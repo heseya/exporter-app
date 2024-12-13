@@ -13,4 +13,6 @@ interface FileServiceContract
     public function buildRow(array $fields, array $response): string;
 
     public function buildEnding(Feed $feed): string;
+
+    public function buildAdditionalData(array $fields): string;
 }

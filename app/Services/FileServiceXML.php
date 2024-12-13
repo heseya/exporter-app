@@ -51,4 +51,9 @@ final readonly class FileServiceXML implements FileServiceContract
     {
         return '</offers>';
     }
+
+    public function buildAdditionalData(array $fields): string
+    {
+        return '';
+    }
 }
