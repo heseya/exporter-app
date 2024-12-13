@@ -69,7 +69,7 @@ final class FileServiceXMLCeneo implements FileServiceContract
         $result = [];
         foreach ($fields as $field) {
             if ($field->resolver instanceof AdditionalSectionResolver) {
-                $value = $field->getGlobalValue();
+                $value = Str::of($field->getGlobalValue());
 
                 if ($field->resolver::ESCAPE) {
                     $value = $value
