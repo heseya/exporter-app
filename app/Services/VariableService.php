@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\Feed;
 use App\Models\Field;
 use App\Resolvers\AdditionalImageResolver;
+use App\Resolvers\AdditionalSectionResolver;
 use App\Resolvers\AttributeResolver;
 use App\Resolvers\AttrsResolver;
 use App\Resolvers\AvailabilityResolver;
@@ -31,6 +32,7 @@ use App\Resolvers\ShippingPriceGoogleResolver;
 use App\Resolvers\ShippingPriceResolver;
 use App\Resolvers\SkuResolver;
 use App\Resolvers\StringResolver;
+use App\Resolvers\StringXmlResolver;
 use App\Resolvers\StripHtmlResolver;
 use App\Resolvers\WpIdResolver;
 use App\Services\Contracts\VariableServiceContract;
@@ -43,6 +45,8 @@ class VariableService implements VariableServiceContract
         '@shipping_price' => ShippingPriceResolver::class,
         '@file_created_at' => FileCreatedAtResolver::class,
         '@shipping_price_google' => ShippingPriceGoogleResolver::class,
+        '@additional_section' => AdditionalSectionResolver::class,
+        '@string_xml' => StringXmlResolver::class,
 
         // Local
         '#cover' => CoverResolver::class,

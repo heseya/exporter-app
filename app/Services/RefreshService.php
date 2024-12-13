@@ -38,6 +38,7 @@ final readonly class RefreshService implements RefreshServiceContract
         $processedRows = 0;
         $lastPage = 1; // Get at least once
         $tempFile = fopen($tempPath, 'a'); // append data
+        fwrite($tempFile, $fileService->buildAdditionalData($fields));
         for ($page = 1; $page <= $lastPage; ++$page) {
             $pageRows = '';
             $response = $this->apiService->get($feed->api, "{$feed->query}&page={$page}");

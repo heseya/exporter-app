@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Models\Feed;
 use App\Models\Field;
+use App\Resolvers\AdditionalSectionResolver;
 use App\Resolvers\LocalResolver;
 use App\Services\Contracts\FileServiceContract;
 use Illuminate\Support\Str;
@@ -25,6 +26,9 @@ final readonly class FileServiceXML implements FileServiceContract
         $cells = ['<o>'];
 
         foreach ($fields as $field) {
+            if ($field->resolver instanceof AdditionalSectionResolver) {
+                continue;
+            }
             $value = Str::of($field->resolver instanceof LocalResolver ?
                 $field->getLocalValue($response) :
                 $field->getGlobalValue());
@@ -50,5 +54,10 @@ final readonly class FileServiceXML implements FileServiceContract
     public function buildEnding(Feed $feed): string
     {
         return '</offers>';
+    }
+
+    public function buildAdditionalData(array $fields): string
+    {
+        return '';
     }
 }
