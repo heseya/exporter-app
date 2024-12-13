@@ -27,6 +27,9 @@ final class FileServiceXMLCeneo implements FileServiceContract
         $oData = [];
 
         foreach ($fields as $field) {
+            if ($field->resolver instanceof AdditionalSectionResolver) {
+                continue;
+            }
             $value = Str::of($field->resolver instanceof LocalResolver ?
                 $field->getLocalValue($response) :
                 $field->getGlobalValue());
